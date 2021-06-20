@@ -29,7 +29,7 @@ class Game final {
   public:
 	static constexpr size_t DefaultWinWidth	  = 800;
 	static constexpr size_t DefaultWinHeight  = 600;
-	static constexpr double DefaultFPS		    = 60.0f;
+	static constexpr double DefaultFPS		  = 60.0f;
 	static constexpr const char* DefaultTitle = "Wex Game";
 
 	const float mFps = DefaultFPS;
