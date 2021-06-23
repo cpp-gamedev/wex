@@ -1,3 +1,4 @@
+#include "SFML/System/Clock.hpp"
 #include "SFML/Window/Keyboard.hpp"
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
@@ -29,16 +30,12 @@ void Engine::handleEvents(sf::RenderWindow& window) {
 void Engine::loop() {
 	const double msPerFrame = 1000.0 / mGraphics.mFps;
 
-	double timeThen = 0.0;
-	double lag		= 0.0;
+	sf::Clock clock;
+	double lag = 0.0;
 
 	auto& window = mGraphics.mWindow;
-
 	while (mGraphics.mWindow.isOpen()) {
-		double timeNow	= 0.0;
-		const double dt = timeNow - timeThen;
-		timeThen		= timeNow;
-
+		const int dt = clock.restart().asMilliseconds();
 		lag += dt;
 
 		handleEvents(window);

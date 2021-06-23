@@ -4,7 +4,7 @@ project(wex)
 add_subdirectory("ext/SFML")
 
 if (NOT CMAKE_BUILD_TYPE)
-	set(CMAKE_BUILD_TYPE Release CACHE STRING "Select Build type [Debug/Release]" FORCE)
+	set(CMAKE_BUILD_TYPE Debug CACHE STRING "Select Build type [Debug/Release]" FORCE)
 endif()
 
 set(CFLAGS -Wall -Wextra -Werror)
