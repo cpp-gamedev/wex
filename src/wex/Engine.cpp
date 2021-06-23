@@ -7,10 +7,7 @@
 namespace wex {
 
 Engine::Status Engine::run() {
-	sf::RenderWindow window(sf::VideoMode(mWindowDim.x, mWindowDim.y), mConfig.winTitle);
-	window.setVerticalSyncEnabled(true);
-	window.setFramerateLimit(mConfig.fps);
-	loop(window);
+	loop();
 	return Status::ok;
 }
 
@@ -19,18 +16,21 @@ void Engine::handleEvents(sf::RenderWindow& window) {
 	while (window.pollEvent(event)) {
 		switch (event.type) {
 		case sf::Event::Closed: window.close(); break;
-		case sf::Event::KeyPressed: std::cout << "key" << std::endl; break;
+		case sf::Event::KeyPressed: std::cout << "key pressed\n"; break;
 		default: break;
 		}
 	}
 }
 
-void Engine::loop(sf::RenderWindow& window) {
-	const double msPerFrame = 1000.0 / mConfig.fps;
+void Engine::loop() {
+	const double msPerFrame = 1000.0 / mGraphics.mFps;
 
 	double timeThen = 0.0;
 	double lag		= 0.0;
-	while (window.isOpen()) {
+
+	auto& window = mGraphics.mWindow;
+
+	while (mGraphics.mWindow.isOpen()) {
 		double timeNow	= 0.0;
 		const double dt = timeNow - timeThen;
 		timeThen		= timeNow;
@@ -40,12 +40,12 @@ void Engine::loop(sf::RenderWindow& window) {
 		handleEvents(window);
 
 		while (lag >= msPerFrame) {
-			mDriver->update(dt);
+			mGame->update(dt);
 			lag -= msPerFrame;
 		}
 
 		window.clear();
-		mDriver->draw();
+		mGame->draw(mGraphics);
 		window.display();
 	}
 }

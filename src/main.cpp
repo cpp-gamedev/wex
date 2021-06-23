@@ -1,10 +1,9 @@
 #include <iostream>
 #include <wex/Engine.hpp>
 
-
-class MyApp final : public wex::Driver {
-	void update([[maybe_unused]] double dt) override{};
-	void draw() override{};
+class MyApp final : public wex::Game {
+	void update([[maybe_unused]] double dt) override {}
+	void draw(wex::GraphicsController&) override {}
 };
 
 int main() {
