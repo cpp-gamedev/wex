@@ -11,7 +11,6 @@
 #include "GraphicsController.hpp"
 #include "util.hpp"
 
-
 namespace wex {
 
 class Game {
@@ -38,20 +37,19 @@ class Game {
 	virtual ~Game() = default;
 
 	inline void setGraphicsController(GraphicsController& controller) noexcept {
-		this->g = std::shared_ptr<GraphicsController>(&controller);
+		this->g = std::unique_ptr<GraphicsController>(&controller);
 	}
 
-	inline const std::shared_ptr<GraphicsController> graphicsController() const noexcept {
-		return this->g;
+	inline const util::NotNullPtr<GraphicsController> graphicsController() const noexcept {
+		return util::NotNullPtr(this->g.get());
 	}
 
   protected:
-	std::shared_ptr<GraphicsController> g = nullptr;
+	std::unique_ptr<GraphicsController> g = nullptr;
 };
 
 struct Config {
 	WindowConfig window;
-	Config() = default;
 };
 
 class Engine final : util::Pinned {
@@ -60,6 +58,7 @@ class Engine final : util::Pinned {
 	enum class Status { ok };
 
   public:
+	Engine()  = delete;
 	~Engine() = default;
 
 	explicit Engine(std::unique_ptr<Game>&& game, Config const& config = Config())

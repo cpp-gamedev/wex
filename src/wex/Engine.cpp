@@ -11,6 +11,7 @@
 namespace wex {
 
 Engine::Status Engine::run() {
+	assert(mGame.get() != nullptr);
 	mGame->init();
 	loop();
 	return Status::ok;

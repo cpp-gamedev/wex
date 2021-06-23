@@ -13,20 +13,18 @@ using Circle = sf::CircleShape;
 /// \brief A configuration struct for intializing
 /// a wex::GraphicsController.
 struct WindowConfig {
+	std::string windowTitle = "Wex Game";
+	float fps				= 60.0;
 	u32 winWidth			= 800;
 	u32 winHeight			= 600;
-	double fps				= 60.0;
 	bool vSync				= true;
-	std::string windowTitle = "Wex Game";
-
-	WindowConfig() = default;
 };
 
 class GraphicsController : util::Pinned {
 	friend Engine;
 
   public:
-	GraphicsController(WindowConfig const& config = WindowConfig());
+	explicit GraphicsController(WindowConfig const& config = WindowConfig());
 
 	Circle circle(float x, float y, float radius);
 
