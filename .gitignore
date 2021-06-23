@@ -12,4 +12,4 @@ _deps
 out/*
 .cache
 .clangd
-.vs-code
+.vscode
