@@ -1,6 +1,8 @@
 #pragma once
+#include "Forward.hpp"
 #include <memory>
 #include <type_traits>
+
 
 namespace wex {
 

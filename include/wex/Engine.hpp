@@ -4,15 +4,19 @@
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Window/Event.hpp>
 #include <iostream>
+#include <memory>
 #include <string>
 
+#include "Common.hpp"
 #include "GraphicsController.hpp"
-#include "common.hpp"
 #include "util.hpp"
+
 
 namespace wex {
 
 class Game {
+	friend Engine;
+
   public:
 	/// \brief Intialize the game state. This function is called once
 	/// before the core game loop is started. By default, it does nothing
@@ -32,6 +36,17 @@ class Game {
 	virtual void draw(GraphicsController& graphics) = 0;
 
 	virtual ~Game() = default;
+
+	inline void setGraphicsController(GraphicsController& controller) noexcept {
+		this->g = std::shared_ptr<GraphicsController>(&controller);
+	}
+
+	inline const std::shared_ptr<GraphicsController> graphicsController() const noexcept {
+		return this->g;
+	}
+
+  protected:
+	std::shared_ptr<GraphicsController> g = nullptr;
 };
 
 struct Config {
@@ -48,7 +63,9 @@ class Engine final : util::Pinned {
 	~Engine() = default;
 
 	explicit Engine(std::unique_ptr<Game>&& game, Config const& config = Config())
-		: mConfig(std::move(config)), mGame(std::move(game)) {}
+		: mConfig(std::move(config)), mGame(std::move(game)) {
+		mGame->setGraphicsController(mGraphics);
+	}
 
 	/// \brief Intialize the window and start the game loop.
 	/// \return The status code for the game. Returns Status::ok if the game starts and quits

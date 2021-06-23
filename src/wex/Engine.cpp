@@ -1,12 +1,16 @@
 #include "SFML/Window/Keyboard.hpp"
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
-#include <iostream>
+
 #include <wex/Engine.hpp>
+
+#include <cassert>
+#include <iostream>
 
 namespace wex {
 
 Engine::Status Engine::run() {
+	mGame->init();
 	loop();
 	return Status::ok;
 }
@@ -45,6 +49,7 @@ void Engine::loop() {
 		}
 
 		window.clear();
+		assert(mGame->graphicsController().get() != nullptr);
 		mGame->draw(mGraphics);
 		window.display();
 	}

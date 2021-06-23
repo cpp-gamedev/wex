@@ -17,7 +17,7 @@ AlignTrailingComments: true
 AlwaysBreakTemplateDeclarations: Yes
 AllowShortEnumsOnASingleLine: true
 AllowShortCaseLabelsOnASingleLine: true
-AllowShortFunctionsOnASingleLine: All
+AllowShortFunctionsOnASingleLine: Empty 
 AllowShortLambdasOnASingleLine: All
 AllowShortBlocksOnASingleLine: Always
 AllowShortIfStatementsOnASingleLine: Always

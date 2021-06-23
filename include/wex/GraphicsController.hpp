@@ -1,10 +1,14 @@
+#include "Common.hpp"
+#include "SFML/Graphics/CircleShape.hpp"
+#include "SFML/Graphics/Drawable.hpp"
 #include "SFML/Graphics/RenderWindow.hpp"
 #include "SFML/System/Vector2.hpp"
 #include "SFML/Window/VideoMode.hpp"
-#include "common.hpp"
 #include "util.hpp"
 
 namespace wex {
+
+using Circle = sf::CircleShape;
 
 /// \brief A configuration struct for intializing
 /// a wex::GraphicsController.
@@ -19,8 +23,16 @@ struct WindowConfig {
 };
 
 class GraphicsController : util::Pinned {
+	friend Engine;
+
   public:
 	GraphicsController(WindowConfig const& config = WindowConfig());
+
+	Circle circle(float x, float y, float radius);
+
+	inline void draw(sf::Drawable const& drawable) {
+		mWindow.draw(drawable);
+	}
 
   private:
 	WindowConfig mConfig;
@@ -28,7 +40,6 @@ class GraphicsController : util::Pinned {
   public:
 	double mFps = mConfig.fps;
 	sf::Vector2u mWindowDims{mConfig.winWidth, mConfig.winHeight};
-
 	sf::RenderWindow mWindow;
 };
 

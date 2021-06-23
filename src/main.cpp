@@ -2,8 +2,20 @@
 #include <wex/Engine.hpp>
 
 class MyApp final : public wex::Game {
+  private:
+	wex::Circle mCircle;
+
+  public:
+	void init() override {
+		mCircle = g->circle(100, 100, 30);
+		mCircle.setFillColor(sf::Color::Blue);
+	}
+
 	void update([[maybe_unused]] double dt) override {}
-	void draw(wex::GraphicsController&) override {}
+
+	void draw(wex::GraphicsController&) override {
+		g->draw(mCircle);
+	}
 };
 
 int main() {
