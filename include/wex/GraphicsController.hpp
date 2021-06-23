@@ -26,7 +26,7 @@ class GraphicsController : util::Pinned {
   public:
 	explicit GraphicsController(WindowConfig const& config = WindowConfig());
 
-	Circle circle(float x, float y, float radius);
+	[[nodiscard]] Circle circle(float x, float y, float radius);
 
 	inline void draw(sf::Drawable const& drawable) {
 		mWindow.draw(drawable);

@@ -13,7 +13,7 @@ class MyApp final : public wex::Game {
 
 	void update([[maybe_unused]] double dt) override {}
 
-	void draw(wex::GraphicsController&) override {
+	void draw() override {
 		g->draw(mCircle);
 	}
 };

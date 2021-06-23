@@ -48,7 +48,7 @@ void Engine::loop() {
 
 		window.clear();
 		assert(mGame->graphicsController().get() != nullptr);
-		mGame->draw(mGraphics);
+		mGame->draw();
 		window.display();
 	}
 }

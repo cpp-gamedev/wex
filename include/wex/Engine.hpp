@@ -13,6 +13,8 @@
 
 namespace wex {
 
+using util::NotNullPtr;
+
 class Game {
 	friend Engine;
 
@@ -30,22 +32,22 @@ class Game {
 
 	/// \brief The draw function is resposible for rendering everything that is visible
 	/// on the screen.
-	/// \param graphics A Graphics Controller that belongs to the engine. the controller contains
-	///	       member functions that can help draw shapes, lines and images to the screen.
-	virtual void draw(GraphicsController& graphics) = 0;
+	virtual void draw() = 0;
 
 	virtual ~Game() = default;
 
 	inline void setGraphicsController(GraphicsController& controller) noexcept {
-		this->g = std::unique_ptr<GraphicsController>(&controller);
+		this->g = &controller;
 	}
 
-	inline const util::NotNullPtr<GraphicsController> graphicsController() const noexcept {
-		return util::NotNullPtr(this->g.get());
+	[[nodiscard]] inline NotNullPtr<GraphicsController> const graphicsController() const noexcept {
+		return NotNullPtr(this->g);
 	}
 
   protected:
-	std::unique_ptr<GraphicsController> g = nullptr;
+  	/// \brief An observing pointer to the Engine's GraphicsController that can be used to draw to
+  	/// the window.
+	GraphicsController* g = nullptr;
 };
 
 struct Config {
