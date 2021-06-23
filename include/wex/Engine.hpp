@@ -45,8 +45,8 @@ class Game {
 	}
 
   protected:
-  	/// \brief An observing pointer to the Engine's GraphicsController that can be used to draw to
-  	/// the window.
+	/// \brief An observing pointer to the Engine's GraphicsController that can be used to draw to
+	/// the window.
 	GraphicsController* g = nullptr;
 };
 
