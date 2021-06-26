@@ -1,6 +1,7 @@
 #pragma once
 #include "Common.hpp"
 #include <cstddef>
+#include <cassert>
 
 namespace wex::util {
 
@@ -18,10 +19,9 @@ class Pinned {
 	Pinned() = default;
 };
 
-#define WEX_ENSURE(cond) ((cond) ? (void(0)) : std::terminate())
-
 /// \brief An observing pointer that holds a resource and ensures that the pointer it holds
-/// is never `nullptr`.
+/// is never `nullptr`. If the resource is `nullptr` while this pointer is in use, it will
+/// terminate the application. Note that this only works in debug builds.
 template <typename T>
 class NotNullPtr {
   public:
@@ -29,7 +29,7 @@ class NotNullPtr {
 	NotNullPtr(std::nullptr_t ptr) = delete;
 
 	constexpr NotNullPtr(T* ptr) : mPtr(ptr) {
-		WEX_ENSURE(ptr != nullptr);
+		assert(ptr != nullptr);
 	}
 
 	// NotNullPtrs can be constructed from other NotNullPtrs
@@ -42,26 +42,30 @@ class NotNullPtr {
 
 	/// \brief Get a raw pointer to the resource held by this NotNullPtr
 	constexpr T* get() {
+		assert(mPtr != nullptr);
 		return mPtr;
 	}
 
 	/// \brief Get a raw `const` pointer to the resource held by this NotNullPtr
 	constexpr T const* get() const {
+		assert(mPtr != nullptr);
 		return mPtr;
 	}
 
 	constexpr auto operator->() const {
-		WEX_ENSURE(get() != nullptr);
-		return get();
+		T* ptr = get();
+		assert(ptr != nullptr);
+		return ptr;
 	}
 
 	constexpr auto operator*() const {
-		WEX_ENSURE(get() != nullptr);
-		return *get();
+		T* ptr = get();
+		assert(ptr != nullptr);
+		return *ptr;
 	}
 
 	NotNullPtr<T> operator=(T* ptr) {
-		WEX_ENSURE(ptr != nullptr);
+		assert(ptr != nullptr);
 		mPtr = ptr;
 		return *this;
 	}

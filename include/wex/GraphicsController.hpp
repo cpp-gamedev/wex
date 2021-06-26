@@ -26,8 +26,14 @@ class GraphicsController : util::Pinned {
   public:
 	explicit GraphicsController(WindowConfig const& config = WindowConfig());
 
+	/// \brief make a circle at position (x, y) with a given radius.
+	/// \param x x-coordinate in pixels
+	/// \param y y-coordinate in pixels
+	/// \param radius radius of the circle in pixels
 	Circle circle(float x, float y, float radius);
 
+
+	/// \brief renders a drawable object to the current RenderWindow.
 	inline void draw(sf::Drawable const& drawable) {
 		mWindow.draw(drawable);
 	}
