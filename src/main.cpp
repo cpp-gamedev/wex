@@ -2,10 +2,10 @@
 #include <wex/Engine.hpp>
 
 class MyApp final : public wex::Game {
-  private:
+	private:
 	wex::Circle mCircle;
 
-  public:
+	public:
 	void init() override {
 		mCircle = g->circle(100, 100, 30);
 		mCircle.setFillColor(sf::Color::Blue);
@@ -13,7 +13,7 @@ class MyApp final : public wex::Game {
 
 	void update([[maybe_unused]] double dt) override {}
 
-	void draw(wex::GraphicsController&) override {
+	void draw() override {
 		g->draw(mCircle);
 	}
 };

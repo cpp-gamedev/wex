@@ -41,24 +41,24 @@ class NotNullPtr {
 	NotNullPtr(NotNullPtr<T>&&)		 = default;
 
 	/// \brief Get a raw pointer to the resource held by this NotNullPtr
-	constexpr T* get() {
+	[[nodiscard]] constexpr T* get() {
 		assert(mPtr != nullptr);
 		return mPtr;
 	}
 
 	/// \brief Get a raw `const` pointer to the resource held by this NotNullPtr
-	constexpr T const* get() const {
+	[[nodiscard]] constexpr T const* get() const {
 		assert(mPtr != nullptr);
 		return mPtr;
 	}
 
-	constexpr auto operator->() const {
+	[[nodiscard]] constexpr auto operator->() const {
 		T* ptr = get();
 		assert(ptr != nullptr);
 		return ptr;
 	}
 
-	constexpr auto operator*() const {
+	[[nodiscard]] constexpr auto operator*() const {
 		T* ptr = get();
 		assert(ptr != nullptr);
 		return *ptr;

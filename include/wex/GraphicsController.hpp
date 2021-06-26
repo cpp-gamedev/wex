@@ -30,7 +30,7 @@ class GraphicsController : util::Pinned {
 	/// \param x x-coordinate in pixels
 	/// \param y y-coordinate in pixels
 	/// \param radius radius of the circle in pixels
-	Circle circle(float x, float y, float radius);
+	[[nodiscard]] Circle circle(float x, float y, float radius);
 
 
 	/// \brief renders a drawable object to the current RenderWindow.
