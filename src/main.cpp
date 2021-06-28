@@ -11,7 +11,10 @@ class MyApp final : public wex::Game {
 		mCircle.setFillColor(sf::Color::Blue);
 	}
 
-	void update([[maybe_unused]] double dt) override {}
+	void update([[maybe_unused]] double dt) override {
+		auto const& circlePos = mCircle.getPosition();
+		mCircle.setPosition(circlePos.x + 1, circlePos.y);
+	}
 
 	void draw() override {
 		g->draw(mCircle);
