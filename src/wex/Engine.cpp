@@ -29,22 +29,16 @@ void Engine::handleEvents(sf::RenderWindow& window) {
 }
 
 void Engine::loop() {
-	const double msPerFrame = 1000.0 / mGraphics.mFps;
-
 	sf::Clock clock;
-	double lag = 0.0;
-
 	auto& window = mGraphics.mWindow;
 	while (mGraphics.mWindow.isOpen()) {
+		// dt is the time elapsed since the last
+		// time 'update' was called.
 		const int dt = clock.restart().asMilliseconds();
-		lag += dt;
 
 		handleEvents(window);
 
-		while (lag >= msPerFrame) {
-			mGame->update(dt);
-			lag -= msPerFrame;
-		}
+		mGame->update(dt);
 
 		window.clear();
 		assert(mGame->graphicsController().get() != nullptr);
