@@ -40,8 +40,9 @@ class Game {
 		this->g = &controller;
 	}
 
-	[[nodiscard]] inline NotNullPtr<GraphicsController> const graphicsController() const noexcept {
-		return NotNullPtr(this->g);
+	[[nodiscard]] inline GraphicsController const& graphicsController() const noexcept {
+		assert(this->g != nullptr);
+		return *this->g;
 	}
 
   protected:

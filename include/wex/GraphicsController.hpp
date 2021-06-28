@@ -14,7 +14,7 @@ using Circle = sf::CircleShape;
 /// a wex::GraphicsController.
 struct WindowConfig {
 	std::string windowTitle = "Wex Game";
-	float fps				= 60.0;
+	float fps				= 60.0f;
 	u32 winWidth			= 800;
 	u32 winHeight			= 600;
 	bool vSync				= true;
@@ -42,7 +42,7 @@ class GraphicsController : util::Pinned {
 	WindowConfig mConfig;
 
   public:
-	double mFps = mConfig.fps;
+	float mFps = mConfig.fps;
 	sf::Vector2u mWindowDims{mConfig.winWidth, mConfig.winHeight};
 	sf::RenderWindow mWindow;
 };
