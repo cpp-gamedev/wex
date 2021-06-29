@@ -1,23 +1,27 @@
-#include <SFML/Graphics.hpp>
-#include <SFML/Window.hpp>
 #include <iostream>
+#include <wex/Engine.hpp>
+
+class MyApp final : public wex::Game {
+	private:
+	wex::Circle mCircle;
+
+	public:
+	void init() override {
+		mCircle = g->circle(100, 100, 30);
+		mCircle.setFillColor(sf::Color::Blue);
+	}
+
+	void update([[maybe_unused]] double dt) override {
+		auto const& circlePos = mCircle.getPosition();
+		mCircle.setPosition(circlePos.x + 1, circlePos.y);
+	}
+
+	void draw() override {
+		g->draw(mCircle);
+	}
+};
 
 int main() {
-	sf::RenderWindow window(sf::VideoMode(800, 600), "SFML window");
-	window.setVerticalSyncEnabled(true);
-	window.setFramerateLimit(60);
-
-	while (window.isOpen()) {
-		sf::Event event;
-		while (window.pollEvent(event)) {
-			switch (event.type) {
-			case sf::Event::Closed: window.close(); break;
-			case sf::Event::KeyPressed: std::cout << "ping\n"; break;
-			default: break;
-			}
-		}
-		window.clear();
-		window.display();
-	}
-	return EXIT_SUCCESS;
+	wex::dryRun<MyApp>();
+	return 0;
 }

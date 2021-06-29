@@ -9,14 +9,15 @@ ColumnLimit: 100
 Standard: c++17
 
 AlignConsecutiveMacros: true
+AlignConsecutiveAssignments: true
 AlignEscapedNewlines: Right
 AlignOperands: true
 AlignTrailingComments: true
-AlignConsecutiveAssignments: false
 
+AlwaysBreakTemplateDeclarations: Yes
 AllowShortEnumsOnASingleLine: true
 AllowShortCaseLabelsOnASingleLine: true
-AllowShortFunctionsOnASingleLine: All
+AllowShortFunctionsOnASingleLine: Empty 
 AllowShortLambdasOnASingleLine: All
 AllowShortBlocksOnASingleLine: Always
 AllowShortIfStatementsOnASingleLine: Always
