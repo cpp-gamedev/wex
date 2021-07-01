@@ -36,7 +36,7 @@ class MyApp final : public wex::Game {
   public:
 	void init() override {}
 
-	void update([[maybe_unused]] double dt) override {
+	void update(double dt) override {
 		ball.onUpdate(dt);
 	}
 
