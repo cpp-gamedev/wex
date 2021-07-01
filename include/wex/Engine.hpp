@@ -13,8 +13,6 @@
 
 namespace wex {
 
-using util::NotNullPtr;
-
 class Game {
 	friend Engine;
 

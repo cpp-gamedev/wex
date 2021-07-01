@@ -1,23 +1,47 @@
+#include "SFML/System/Vector2.hpp"
 #include <iostream>
 #include <wex/Engine.hpp>
+#include <wex/presets/GameObject.hpp>
 
-class MyApp final : public wex::Game {
-	private:
-	wex::Circle mCircle;
+template <typename T>
+struct Shape : wex::Component {
+	T shape;
+	Shape(T&& shape_) : shape(shape_) {
+		static_assert(std::is_base_of_v<sf::Shape, T>);
+	}
+};
 
-	public:
-	void init() override {
-		mCircle = g->circle(100, 100, 30);
-		mCircle.setFillColor(sf::Color::Blue);
+using CCircleShape = Shape<wex::Circle>;
+
+class Ball : public wex::GameObject {
+  public:
+	Ball() {
+		this->give<wex::CVelocity>(1, 1);
+		auto circle = wex::Circle(50);
+		circle.setPosition(0, 0);
+		this->give<CCircleShape>(std::move(circle));
 	}
 
+	void onUpdate(double) override {
+		sf::Vector2f const& vel = this->get<wex::CVelocity>()->vel;
+		auto& shape				= this->get<CCircleShape>()->shape;
+		shape.setPosition(shape.getPosition() + vel);
+	}
+};
+
+class MyApp final : public wex::Game {
+  private:
+	Ball ball;
+
+  public:
+	void init() override {}
+
 	void update([[maybe_unused]] double dt) override {
-		auto const& circlePos = mCircle.getPosition();
-		mCircle.setPosition(circlePos.x + 1, circlePos.y);
+		ball.onUpdate(dt);
 	}
 
 	void draw() override {
-		g->draw(mCircle);
+		g->draw(ball.get<CCircleShape>()->shape);
 	}
 };
 
