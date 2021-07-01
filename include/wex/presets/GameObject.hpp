@@ -21,7 +21,7 @@ class GameObject {
 	template <typename T>
 	T* get() {
 		static_assert(std::is_base_of_v<Component, T>);
-		/// TODO: optimize this O(n^2) lookup
+		/// TODO: optimize this O(n) lookup
 		for (auto const& compPtr : mComponents) {
 			auto comp = dynamic_cast<T*>(compPtr.get());
 			if (comp != nullptr) return reinterpret_cast<T*>(comp);
