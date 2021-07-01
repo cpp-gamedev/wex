@@ -13,6 +13,9 @@ using Circle = sf::CircleShape;
 /// \brief A configuration struct for intializing
 /// a wex::GraphicsController.
 struct WindowConfig {
+	static constexpr u32 DefaultWidth  = 800;
+	static constexpr u32 DefaultHeight = 600;
+
 	std::string windowTitle = "Wex Game";
 	float fps				= 60.0f;
 	u32 winWidth			= 800;
@@ -31,7 +34,6 @@ class GraphicsController : util::Pinned {
 	/// \param y y-coordinate in pixels
 	/// \param radius radius of the circle in pixels
 	[[nodiscard]] Circle circle(float x, float y, float radius);
-
 
 	/// \brief renders a drawable object to the current RenderWindow.
 	inline void draw(sf::Drawable const& drawable) {

@@ -19,7 +19,7 @@ class GameObject {
 	virtual void onUpdate([[maybe_unused]] double dt) {}
 
 	template <typename T>
-	T* get() const {
+	[[nodiscard]] T* get() const noexcept{
 		static_assert(std::is_base_of_v<Component, T>);
 		/// TODO: optimize this O(n) lookup
 		for (auto const& compPtr : mComponents) {
