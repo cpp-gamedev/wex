@@ -19,7 +19,7 @@ class GameObject {
 	virtual void onUpdate([[maybe_unused]] double dt) {}
 
 	template <typename T>
-	[[nodiscard]] T* get() const noexcept{
+	[[nodiscard]] T* get() const noexcept {
 		static_assert(std::is_base_of_v<Component, T>);
 		/// TODO: optimize this O(n) lookup
 		for (auto const& compPtr : mComponents) {
@@ -31,9 +31,10 @@ class GameObject {
 
 	template <typename T, typename... Args>
 	T* give(Args&&... args) {
+		static_assert(std::is_base_of_v<Component, T>, "T does not derive from wex::Component");
 		auto compPtr = std::make_unique<T>(std::forward<Args>(args)...);
 		mComponents.push_back(std::move(compPtr));
-		return reinterpret_cast<T*>(mComponents.back().get());
+		return static_cast<T*>(mComponents.back().get());
 	}
 
 	virtual ~GameObject() = default;

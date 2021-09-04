@@ -1,6 +1,7 @@
 #include "SFML/Graphics/RectangleShape.hpp"
 #include "SFML/System/Vector2.hpp"
 #include "wex/Forward.hpp"
+#include "wex/Input.hpp"
 #include <cstdint>
 #include <iostream>
 #include <wex/Engine.hpp>
@@ -11,7 +12,8 @@ using Vec2 = sf::Vector2f;
 template <typename T>
 struct Shape : wex::Component {
 	T shape;
-	Shape(T&& shape_) : shape(std::move(shape_)) {
+
+	Shape(T const& shape_) : shape(shape_) {
 		static_assert(std::is_base_of_v<sf::Shape, T>);
 	}
 
@@ -29,7 +31,7 @@ class Ball : public wex::GameObject {
 		this->give<wex::CVelocity>(0.17f, 0.0f);
 		auto circle = wex::Circle(30);
 		circle.setPosition(0, 0);
-		this->give<CCircleShape>(std::move(circle));
+		this->give<CCircleShape>(circle);
 	}
 
 	void onUpdate(double dt) override {
@@ -84,6 +86,8 @@ class MyApp final : public wex::Game {
 
 	void update(double dt) override {
 		ball.onUpdate(dt);
+
+		if (wex::isReleased(engine->inputState().keys[wex::Kbd::A])) { printf("A\n"); }
 	}
 
 	void draw() override {
