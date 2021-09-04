@@ -14,7 +14,6 @@ namespace wex {
 Engine::Status Engine::run() {
 	assert(mGame.get() != nullptr);
 	mGame->init();
-	// mGraphics.mWindow.setKeyRepeatEnabled(false);
 	loop();
 	return Status::ok;
 }
