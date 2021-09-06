@@ -47,6 +47,18 @@ struct InputState {
 
 	sf::Vector2f mousePos{0.0f, 0.0f};
 	float mouseWheelDy = 0;
+
+	inline constexpr bool isKeyPressed(Kbd::Key key) const noexcept {
+		return isPressed(keys[key]);
+	}
+
+	inline constexpr bool isKeyHeld(Kbd::Key key) const noexcept {
+		return isHeld(keys[key]);
+	}
+
+	inline constexpr bool isKeyReleased(Kbd::Key key) const noexcept {
+		return isReleased(keys[key]);
+	}
 };
 
 } // namespace wex
