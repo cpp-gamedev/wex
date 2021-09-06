@@ -8,7 +8,6 @@ indent_style = tab
 indent_style = tab 
 indent_size = 4
 
-
 [*{.py, js, sh}]
 indent_size = 4
 indent_style = space

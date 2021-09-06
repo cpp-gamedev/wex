@@ -9,7 +9,9 @@
 
 #include "Common.hpp"
 #include "GraphicsController.hpp"
+#include "Input.hpp"
 #include "util.hpp"
+
 
 namespace wex {
 
@@ -43,10 +45,15 @@ class Game {
 		return *this->g;
 	}
 
+	inline void setEngine(Engine& engine) noexcept {
+		this->engine = &engine;
+	}
+
   protected:
 	/// \brief An observing pointer to the Engine's GraphicsController that can be used to draw to
 	/// the window.
 	GraphicsController* g = nullptr;
+	Engine* engine		  = nullptr;
 };
 
 struct Config {
@@ -65,12 +72,17 @@ class Engine final : util::Pinned {
 	explicit Engine(std::unique_ptr<Game>&& game, Config const& config = Config())
 		: mConfig(std::move(config)), mGame(std::move(game)) {
 		mGame->setGraphicsController(mGraphics);
+		mGame->setEngine(*this);
 	}
 
 	/// \brief Intialize the window and start the game loop.
 	/// \return The status code for the game. Returns Status::ok if the game starts and quits
 	///			successfully.
 	Status run();
+
+	inline InputState const& inputState() const noexcept {
+		return mInputState;
+	}
 
   private:
 	/// \brief The core game loop. calls `game.update` and `game.draw`
@@ -86,6 +98,7 @@ class Engine final : util::Pinned {
   private:
 	std::unique_ptr<Game> mGame;
 	GraphicsController mGraphics{mConfig.window};
+	InputState mInputState;
 };
 
 /// \brief Do a quick run of a game with the default configurations
