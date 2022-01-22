@@ -54,18 +54,18 @@ class Ball : public wex::GameObject {
 	}
 
 	void onUpdate(double dt) override {
-		Vec2 const& vel		= this->get<wex::CVelocity>()->vel * float(dt);
-		CCircleShape& shape = *this->get<CCircleShape>();
+		Vec2 const& vel		= this->get<wex::CVelocity>().vel * float(dt);
+		CCircleShape& shape = this->get<CCircleShape>();
 		Vec2 const& pos		= shape.getPosition();
 		shape.setPosition(pos + vel);
 	}
 
 	void onDraw(wex::GraphicsController& g) {
-		g.draw(this->get<CCircleShape>()->shape);
+		g.draw(this->get<CCircleShape>().shape);
 	}
 
 	void moveTo(float x, float y) noexcept {
-		this->get<CCircleShape>()->setPosition({x, y});
+		this->get<CCircleShape>().setPosition({x, y});
 	}
 };
 
@@ -85,12 +85,12 @@ class Paddle : public wex::GameObject {
 	}
 
 	void onDraw(wex::GraphicsController& g) {
-		g.draw(this->get<CRectShape>()->shape);
+		g.draw(this->get<CRectShape>().shape);
 	}
 
 	void moveHorx(float const dy) {
-		CRectShape* shape = this->get<CRectShape>();
-		shape->move(0, dy);
+		CRectShape& shape = this->get<CRectShape>();
+		shape.move(0, dy);
 	}
 };
 
@@ -125,12 +125,12 @@ class MyApp final : public wex::Game {
 		if (mInput->isKeyHeld(wex::Kbd::Down))
 			rightPaddle.moveHorx(Paddle::YSpeed);
 
-		auto const& bShape = ball.get<CCircleShape>()->shape;
-		auto const& lShape = leftPaddle.get<CRectShape>()->shape;
-		auto const& rShape = rightPaddle.get<CRectShape>()->shape;
+		auto const& bShape = ball.get<CCircleShape>().shape;
+		auto const& lShape = leftPaddle.get<CRectShape>().shape;
+		auto const& rShape = rightPaddle.get<CRectShape>().shape;
 
 		Vec2 const& bPos = bShape.getPosition();
-		Vec2& bVel		 = ball.get<wex::CVelocity>()->vel;
+		Vec2& bVel		 = ball.get<wex::CVelocity>().vel;
 		if (bPos.x <= Ball::Radius or bPos.x >= WinWidth - Ball::Radius) {
 			bVel.x *= -1;
 		}
