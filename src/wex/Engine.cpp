@@ -52,6 +52,11 @@ void Engine::handleEvents(sf::RenderWindow& window) {
 			break;
 		}
 
+		case sf::Event::MouseMoved: {
+			mInputState.mousePos = {event.mouseMove.x, event.mouseMove.y};
+			break;
+		}
+
 		default: break;
 		}
 	}

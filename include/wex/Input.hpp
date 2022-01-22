@@ -45,7 +45,8 @@ struct InputState {
 	std::array<KeyState, Kbd::KeyCount> keys{};
 	std::array<KeyState, MaxMouseBtns> mouse{};
 
-	sf::Vector2f mousePos{0.0f, 0.0f};
+	/// \brief Pixel position of the mouse cursor relative to the top left of the window.
+	sf::Vector2i mousePos{0, 0};
 	float mouseWheelDy = 0;
 
 	inline constexpr bool isKeyPressed(Kbd::Key key) const noexcept {

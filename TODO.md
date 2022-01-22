@@ -26,6 +26,12 @@
 
 - [ ] CMake presents.
 
+- [ ] Testing
+	- [ ] Mock sf::Events to test Mouse position?
+
+- [ ] Is mouse cursor in window bounds?
+- [ ] Is window focused?
+
 ---
 
 Blockers on vyse:
