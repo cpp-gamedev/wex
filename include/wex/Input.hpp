@@ -2,11 +2,13 @@
 #include "Common.hpp"
 #include "SFML/System/Vector2.hpp"
 #include "SFML/Window/Keyboard.hpp"
+#include "SFML/Window/Mouse.hpp"
 #include <array>
 
 namespace wex {
 
 using Kbd = sf::Keyboard;
+using Mouse = sf::Mouse;
 
 enum class KeyFlag : u8 {
 	Released = 0b001,
@@ -41,7 +43,7 @@ constexpr KeyState clearFlag(KeyState const state, KeyFlag const flag) {
 }
 
 struct InputState {
-	static constexpr size_t MaxMouseBtns = 5;
+	static constexpr size_t MaxMouseBtns = sf::Mouse::ButtonCount;
 	std::array<KeyState, Kbd::KeyCount> keys{};
 	std::array<KeyState, MaxMouseBtns> mouse{};
 
@@ -59,6 +61,18 @@ struct InputState {
 
 	inline constexpr bool isKeyReleased(Kbd::Key key) const noexcept {
 		return isReleased(keys[key]);
+	}
+
+	inline constexpr bool isMouseBtnPressed(Mouse::Button btn) const noexcept {
+		return isPressed(mouse[btn]);
+	}
+
+	inline constexpr bool isMouseBtnHeld(Mouse::Button btn) const noexcept {
+		return isHeld(mouse[btn]);
+	}
+
+	inline constexpr bool isMouseBtnReleased(Mouse::Button btn) const noexcept {
+		return isReleased(mouse[btn]);
 	}
 };
 

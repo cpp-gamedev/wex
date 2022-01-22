@@ -1,5 +1,6 @@
 #include "SFML/Graphics/RectangleShape.hpp"
 #include "SFML/System/Vector2.hpp"
+#include "SFML/Window/Mouse.hpp"
 #include "wex/Forward.hpp"
 #include "wex/Input.hpp"
 #include <cstdint>
@@ -47,6 +48,8 @@ class Ball : public wex::GameObject {
 
 	Ball() {
 		this->give<wex::CVelocity>(0.17f, 0.1f);
+
+		// wex.circle(0, 0, Radius)
 		wex::Circle circle(Radius);
 		circle.setPosition(0, 0);
 		circle.setOrigin(Radius, Radius);

@@ -1,7 +1,10 @@
+- [ ] Testing
+	- [ ] Mock sf::Events to test Mouse position?
+
 - [ ] Architect entities and objects in the engine.
 
 - [ ] Input
-	- [ ] Get mouse coords
+	- [x] Get mouse coords
 	- [ ] left/right click
 
 - [ ] Shapes
@@ -26,8 +29,6 @@
 
 - [ ] CMake presents.
 
-- [ ] Testing
-	- [ ] Mock sf::Events to test Mouse position?
 
 - [ ] Is mouse cursor in window bounds?
 - [ ] Is window focused?
@@ -35,5 +36,6 @@
 ---
 
 Blockers on vyse:
-1. No unit tests for the API
-2. 
+1. Not many unit tests for the C++ API
+2. Not enough stress tests for the vyse garbage collector
+3. UserData objects.

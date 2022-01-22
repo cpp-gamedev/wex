@@ -57,14 +57,25 @@ void Engine::handleEvents(sf::RenderWindow& window) {
 			break;
 		}
 
+		case sf::Event::MouseButtonPressed: {
+			const auto& btnEvent  = event.mouseButton;
+			KeyState& newKeyState = currentInputState.mouse[btnEvent.button];
+			newKeyState			  = setFlag(newKeyState, KeyFlag::Pressed);
+			break;
+		}
+
+		case sf::Event::MouseButtonReleased: {
+			const auto& btnEvent  = event.mouseButton;
+			KeyState& newKeyState = currentInputState.mouse[btnEvent.button];
+			newKeyState			  = setFlag(newKeyState, KeyFlag::Released);
+			break;
+		}
+
 		default: break;
 		}
 	}
 
-	for (size_t i = 0; i < currentInputState.keys.size(); ++i) {
-		KeyState& state			  = mInputState.keys[i];
-		KeyState const& currState = currentInputState.keys[i];
-
+	auto updateKeyState = [](KeyState const& currState, KeyState& state) {
 		if (isPressed(state) or isHeld(state)) {
 			if (isReleased(currState)) {
 				state = static_cast<KeyState>(KeyFlag::Released);
@@ -74,6 +85,18 @@ void Engine::handleEvents(sf::RenderWindow& window) {
 		} else {
 			state = currState;
 		}
+	};
+
+	for (size_t i = 0; i < currentInputState.keys.size(); ++i) {
+		KeyState& state			  = mInputState.keys[i];
+		KeyState const& currState = currentInputState.keys[i];
+		updateKeyState(currState, state);
+	}
+
+	for (size_t i = 0; i < currentInputState.mouse.size(); ++i) {
+		KeyState& state			  = mInputState.mouse[i];
+		KeyState const& currState = currentInputState.mouse[i];
+		updateKeyState(currState, state);
 	}
 }
 
