@@ -1,3 +1,5 @@
+- [x] Make the engine a static library and link the pong app to it.
+
 - [ ] Testing
 	- [ ] Mock sf::Events to test Mouse position?
 
