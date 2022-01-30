@@ -60,6 +60,8 @@ struct Config {
 	WindowConfig window;
 };
 
+/// \brief The engine owns a game (wex::Game) and exposes necessary functionality like input, graphics etc.
+/// to the game.
 class Engine final : util::Pinned {
 
 	/// \brief Exit code for the game engine.

@@ -10,6 +10,10 @@
 	- [ ] left/right click
 
 - [ ] Shapes
+	- [ ] Rectangle
+	- [ ] Circle
+	- [ ] Line
+	- [ ] Polygon
 
 - [ ] Colors
 

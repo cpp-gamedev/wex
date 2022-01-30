@@ -31,6 +31,7 @@ Engine::Status Engine::run() {
 	| Nothing  | -        | Pressed | -       |
 	+----------+----------+---------+---------+
 */
+// Polls events from a window and updates the engine's input map to reflect the received events.
 void Engine::handleEvents(sf::RenderWindow& window) {
 	sf::Event event;
 	InputState currentInputState;
@@ -104,8 +105,7 @@ void Engine::loop() {
 	sf::Clock clock;
 	auto& window = mGraphics.mWindow;
 	while (mGraphics.mWindow.isOpen()) {
-		// dt is the time elapsed since the last
-		// time 'update' was called.
+		// dt is the time elapsed since the last time 'update' was called.
 		const int dt = clock.restart().asMilliseconds();
 
 		handleEvents(window);
