@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.13)
+set(BUILD_SHARED_LIBS OFF)
 project(wex)
 
 add_subdirectory("ext/SFML")
@@ -12,7 +13,7 @@ file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS "src/*.cpp")
 
 # TODO: set the wex engine to a static library, and link this exe
 # to that library.
-add_library(${PROJECT_NAME})
+add_library(${PROJECT_NAME} STATIC)
 add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 target_sources(${PROJECT_NAME} PRIVATE ${SOURCES})
 
